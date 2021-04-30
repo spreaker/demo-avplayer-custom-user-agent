@@ -91,8 +91,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
      * - Network requests contains the default User-Agent "AppleCoreMedia" so the listen is not correctly attributed to your app.
      */
     @IBAction func demoAVPlayerUnconfigured() {
-        print("> AVPlayer ------------------------------------------------------- ")
-        print(playableURLString)
+        print("> -------------------------------------------------------")
+        print("> AVPlayer - \(playableURLString)")
         
         let url = URL(string: playableURLString)!
         let playerItem = AVPlayerItem(url: url)
@@ -111,8 +111,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
      * - It used an undocumented key "AVURLAssetHTTPHeaderFieldsKey" that might change on newer versions of iOS.
      */
     @IBAction func demoAVPlayerWithCustomHeaders() {
-        print("> AVPlayer Custom Headers ------------------------------------------------------- ")
-        print(playableURLString)
+        print("> -------------------------------------------------------")
+        print("> AVPlayer Custom Headers - \(playableURLString)")
         
         let url = URL(string: playableURLString)!
         let headers: [String: Any] = [ "User-Agent": UserAgent.default ]
