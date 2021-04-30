@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import GCDWebServer
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -19,6 +20,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var timeLabel: UILabel!
     
     var player = AVPlayer()
+    let webServer = GCDWebServer()
+    
     var playableURLString: String {
         // Local URL
         if locationSegments.selectedSegmentIndex == 0 {
@@ -44,6 +47,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
         } catch let error {
             fatalError("Unable to configure audio session: \(error)")
         }
+        
+        // Configure local webserver
+        GCDWebServer.setLogLevel(3)
+        webServer.addDefaultHandler(forMethod: "GET", request: GCDWebServerRequest.self) { (request) -> GCDWebServerResponse? in
+            print("> Incoming Request\n\(request)\n")
+            
+            if request.path == "/episode.mp3" {
+                let response = GCDWebServerFileResponse(file: Bundle.main.path(forResource: "bensound-goinghigher", ofType: "mp3")!, byteRange: request.byteRange, isAttachment: true)
+                response?.setValue("bytes", forAdditionalHeader: "Accept-Ranges")
+                response?.cacheControlMaxAge = 3600
+                return response
+            }
+            
+            return nil
+        }
+        webServer.start(withPort: 8080, bonjourName: "GCD Web Server")
         
         // Prepare UI
         self.onLocationChanged()
