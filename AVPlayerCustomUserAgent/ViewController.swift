@@ -10,6 +10,7 @@ import AVFoundation
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var locationSegments: UISegmentedControl!
     @IBOutlet weak var urlField: UITextField! {
         didSet {
             urlField.delegate = self
@@ -19,10 +20,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     var player = AVPlayer()
     var playableURLString: String {
+        // Local URL
+        if locationSegments.selectedSegmentIndex == 0 {
+            return "http://localhost:8080/episode.mp3"
+        }
+        
+        // Remote URL
         if let text = urlField.text, !text.isEmpty {
             return text
+        } else {
+            return "https://api.spreaker.com/v2/episodes/44319865/download.mp3"
         }
-        return "https://api.spreaker.com/v2/episodes/44319865/download.mp3"
     }
     var timeObserverToken: Any?
 
@@ -38,8 +46,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
         // Prepare UI
-        self.urlField.text = nil
-        self.urlField.placeholder = playableURLString
+        self.onLocationChanged()
         
         // Reset player
         self.reset()
@@ -81,7 +88,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
      * CONS:
      * - Network requests contains the default User-Agent "AppleCoreMedia" so the listen is not correctly attributed to your app.
      */
-    @IBAction func demo1AVPlayer() {
+    @IBAction func demoAVPlayerUnconfigured() {
         print("> AVPlayer ------------------------------------------------------- ")
         print(playableURLString)
         
@@ -101,7 +108,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
      * CONS:
      * - It used an undocumented key "AVURLAssetHTTPHeaderFieldsKey" that might change on newer versions of iOS.
      */
-    @IBAction func demo3AVPlayerCustomHeaders() {
+    @IBAction func demoAVPlayerWithCustomHeaders() {
         print("> AVPlayer Custom Headers ------------------------------------------------------- ")
         print(playableURLString)
         
@@ -143,5 +150,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if (newTime.isValid) {
             player.seek(to: newTime)
         }
+    }
+    
+    @IBAction func onLocationChanged() {
+        self.urlField.text = nil
+        self.urlField.placeholder = playableURLString
     }
 }

@@ -16,40 +16,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mOy-MP-abF">
+                                <rect key="frame" x="0.0" y="44" width="414" height="32"/>
+                                <segments>
+                                    <segment title="Local"/>
+                                    <segment title="Remote"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onLocationChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="sul-LY-JvD"/>
+                                </connections>
+                            </segmentedControl>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="oGR-Du-HzO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="75" width="414" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="EHU-8G-Z7Q"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="url"/>
                             </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="sYs-CA-R0F" userLabel="Demo Buttons">
-                                <rect key="frame" x="20" y="194" width="374" height="497.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="sYs-CA-R0F" userLabel="Demo Buttons">
+                                <rect key="frame" x="20" y="363" width="374" height="170"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPX-IF-i84">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
-                                        <state key="normal" title="Demo AVPlayer - Default"/>
+                                        <state key="normal" title="Demo unconfigured"/>
                                         <connections>
-                                            <action selector="demo1AVPlayer" destination="BYZ-38-t0r" eventType="touchUpInside" id="zI1-OW-clk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZL-ur-KiM">
-                                        <rect key="frame" x="0.0" y="156" width="374" height="30"/>
-                                        <state key="normal" title="Demo AVPlayer - Custom Loader"/>
-                                        <connections>
-                                            <action selector="demo2AVPlayerCustomLoader" destination="BYZ-38-t0r" eventType="touchUpInside" id="VgD-Gh-GhG"/>
+                                            <action selector="demoAVPlayerUnconfigured" destination="BYZ-38-t0r" eventType="touchUpInside" id="EOi-ni-sgz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BeW-Au-AMD">
-                                        <rect key="frame" x="0.0" y="311.5" width="374" height="30"/>
-                                        <state key="normal" title="Demo AVPlayer - Custom Headers"/>
+                                        <rect key="frame" x="0.0" y="70" width="374" height="30"/>
+                                        <state key="normal" title="Demo with custom headers"/>
                                         <connections>
-                                            <action selector="demo3AVPlayerCustomHeaders" destination="BYZ-38-t0r" eventType="touchUpInside" id="A2l-bm-3mr"/>
+                                            <action selector="demoAVPlayerWithCustomHeaders" destination="BYZ-38-t0r" eventType="touchUpInside" id="vda-bv-pRe"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPV-Bu-emu">
-                                        <rect key="frame" x="0.0" y="467.5" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="140" width="374" height="30"/>
                                         <state key="normal" title="Stop and reset"/>
                                         <connections>
                                             <action selector="reset" destination="BYZ-38-t0r" eventType="touchUpInside" id="6lM-bt-Ax0"/>
@@ -57,8 +60,8 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Dt4-C9-c7h" userLabel="Playback">
-                                <rect key="frame" x="0.0" y="791.5" width="414" height="70.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dt4-C9-c7h" userLabel="Playback">
+                                <rect key="frame" x="0.0" y="781.5" width="414" height="80.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxl-fQ-crg">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
@@ -67,7 +70,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TxA-or-R0l">
-                                        <rect key="frame" x="0.0" y="20.5" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="30.5" width="414" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Miy-qO-zoX" userLabel="RW">
                                                 <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
@@ -101,26 +104,31 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Dt4-C9-c7h" firstAttribute="top" secondItem="sYs-CA-R0F" secondAttribute="bottom" constant="100" id="5Cx-7B-lbP"/>
+                            <constraint firstItem="oGR-Du-HzO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="5Ve-WV-rCl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dt4-C9-c7h" secondAttribute="trailing" id="5h1-te-wIK"/>
                             <constraint firstItem="Dt4-C9-c7h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="89Z-me-6Z4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sYs-CA-R0F" secondAttribute="trailing" id="9Ap-5j-cQC"/>
+                            <constraint firstItem="mOy-MP-abF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="C5o-c2-pLe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Dt4-C9-c7h" secondAttribute="bottom" id="DWN-Af-L1k"/>
-                            <constraint firstItem="sYs-CA-R0F" firstAttribute="top" secondItem="oGR-Du-HzO" secondAttribute="bottom" constant="100" id="aXK-9q-6Ns"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mOy-MP-abF" secondAttribute="trailing" id="EMs-c0-X1P"/>
                             <constraint firstItem="sYs-CA-R0F" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aqW-cS-Qva"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oGR-Du-HzO" secondAttribute="trailing" id="gRt-rD-Wwt"/>
+                            <constraint firstItem="sYs-CA-R0F" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="me7-wW-z5c"/>
+                            <constraint firstItem="mOy-MP-abF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nCD-pG-DuC"/>
                             <constraint firstItem="oGR-Du-HzO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nXA-uP-ZSj"/>
-                            <constraint firstItem="oGR-Du-HzO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vRt-0I-y2C"/>
+                            <constraint firstItem="oGR-Du-HzO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vH5-vD-LRX"/>
+                            <constraint firstItem="oGR-Du-HzO" firstAttribute="top" secondItem="mOy-MP-abF" secondAttribute="bottom" id="vRt-0I-y2C"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="locationSegments" destination="mOy-MP-abF" id="zDw-Rs-cTf"/>
                         <outlet property="timeLabel" destination="Zxl-fQ-crg" id="gYQ-UX-4Q2"/>
                         <outlet property="urlField" destination="oGR-Du-HzO" id="PFa-l8-JHW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46" y="48"/>
+            <point key="canvasLocation" x="44.927536231884062" y="47.544642857142854"/>
         </scene>
     </scenes>
     <resources>
