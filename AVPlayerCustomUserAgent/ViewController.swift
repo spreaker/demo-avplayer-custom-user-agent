@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var timeLabel: UILabel!
     
     var player = AVPlayer()
+    var playerObserver: Any?
     let webServer = GCDWebServer()
     
     var playableURLString: String {
@@ -35,7 +36,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             return "https://api.spreaker.com/v2/episodes/44319865/download.mp3"
         }
     }
-    var timeObserverToken: Any?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,24 +70,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Reset player
         self.reset()
     }
-    
-    private func addPeriodicTimeObserver() {
-        // Notify every half second
-        let timeScale = CMTimeScale(NSEC_PER_SEC)
-        let time = CMTime(seconds: 0.5, preferredTimescale: timeScale)
-
-        timeObserverToken = avplayer.addPeriodicTimeObserver(forInterval: time, queue: .main) { [weak self] time in
-            self?.timeLabel.text = time.humanDescription()
-        }
-    }
-
-    private func removePeriodicTimeObserver() {
-        if let timeObserverToken = timeObserverToken {
-            avplayer.removeTimeObserver(timeObserverToken)
-            self.timeObserverToken = nil
-        }
-    }
-    
+        
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -96,7 +79,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - IBActions
-
+    
     /**
      * Plain usage of AVPlayer API.
      * All performed requests contains the default User-Agent "AppleCoreMedia"
@@ -141,13 +124,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func reset() {
+        print("> RESET ------------------------------------------------------- ")
         removePeriodicTimeObserver()
         player.pause()
         
         player = AVPlayer()
         addPeriodicTimeObserver()
-        
-        print("> RESET ------------------------------------------------------- ")
     }
     
     @IBAction func seekBack() {
@@ -175,4 +157,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.urlField.text = nil
         self.urlField.placeholder = playableURLString
     }
+    
+    // MARK: - Internal stuff
+    
+    private func addPeriodicTimeObserver() {
+        // Notify every half second
+        let timeScale = CMTimeScale(NSEC_PER_SEC)
+        let time = CMTime(seconds: 0.5, preferredTimescale: timeScale)
+
+        playerObserver = player.addPeriodicTimeObserver(forInterval: time, queue: .main) { [weak self] time in
+            self?.timeLabel.text = time.humanDescription()
+        }
+    }
+
+    private func removePeriodicTimeObserver() {
+        if let timeObserverToken = playerObserver {
+            player.removeTimeObserver(timeObserverToken)
+            self.playerObserver = nil
+        }
+    }
+
 }
