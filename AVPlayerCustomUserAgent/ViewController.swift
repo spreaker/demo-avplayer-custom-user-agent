@@ -82,7 +82,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     /**
      * Plain usage of AVPlayer API.
-     * All performed requests contains the default User-Agent "AppleCoreMedia"
      * Not recommended.
      *
      * PRO:
@@ -102,13 +101,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     /**
-     * Usage of AVPlayer API with a customized headers
+     * Usage of AVPlayer API with a customized headers.
      * Recommended.
      *
      * PRO:
      * - Network requests contains the customized User-Agent "MyPodcastApp", so the listen is correctly attributed to your app.
      * CONS:
-     * - It used an undocumented key "AVURLAssetHTTPHeaderFieldsKey" that might change on newer versions of iOS.
+     * - It uses an undocumented key "AVURLAssetHTTPHeaderFieldsKey" that might change on newer versions of iOS.
      */
     @IBAction func demoAVPlayerWithCustomHeaders() {
         print("> -------------------------------------------------------")
